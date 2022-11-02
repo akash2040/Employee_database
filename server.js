@@ -178,3 +178,52 @@ function employeeAdd() {
       );
     });
 }
+
+function employeeRoleupdate() {
+  connection.query(`SELECT * FROM employee`, function (err, data) {
+    if (err) throw err;
+
+    let employees = [];
+    let roles = [];
+
+    for (let i = 0; i < data.length; i++) {
+      employees.push(data[i].first_name);
+    }
+
+    connection.query(`SELECT * FROM roles`, function (err, data) {
+      if (err) throw err;
+
+      for (let i = 0; i < data.length; i++) {
+        roles.push(data[i].title);
+      }
+
+      inquirer
+        .prompt([
+          {
+            name: "employee_id",
+            message: "Who's role needs to be updated",
+            type: "list",
+            choices: employees,
+          },
+          {
+            name: "role_id",
+            message: "What is the new role?",
+            type: "list",
+            choices: roles,
+          },
+        ])
+        .then(function ({ employee_id, role_id }) {
+          connection.query(
+            `UPDATE employee SET role_id = ${
+              roles.indexOf(role_id) + 1
+            } WHERE id = ${employees.indexOf(employee_id) + 1}`,
+            function (err, data) {
+              if (err) throw err;
+
+              promptInfo();
+            }
+          );
+        });
+    });
+  });
+}
