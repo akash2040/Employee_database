@@ -227,3 +227,49 @@ function employeeRoleupdate() {
     });
   });
 }
+function managerUpdate() {
+  connection.query(`SELECT * FROM employee`, function (err, data) {
+    if (err) throw err;
+
+    s;
+    let employees = [];
+
+    for (let i = 0; i < data.length; i++) {
+      employees.push(data[i].first_name);
+    }
+
+    inquirer
+      .prompt([
+        {
+          name: "employeeId",
+          message: "Who would you like to update?",
+          type: "list",
+          choices: employees,
+        },
+        {
+          name: "managerId",
+          message: "Who's their new manager?",
+          type: "list",
+          choices: ["none"].concat(employees),
+        },
+      ])
+      .then(({ employeeId, managerId }) => {
+        let queryText = "";
+        if (managerId !== "none") {
+          queryText = `UPDATE employee SET manager_id = ${
+            employees.indexOf(managerId) + 1
+          } WHERE id = ${employees.indexOf(employeeId) + 1}`;
+        } else {
+          queryText = `UPDATE employee SET manager_id = ${null} WHERE id = ${
+            employees.indexOf(employeeId) + 1
+          }`;
+        }
+
+        connection.query(queryText, function (err, data) {
+          if (err) throw err;
+
+          promptInfo();
+        });
+      });
+  });
+}
