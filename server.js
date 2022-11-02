@@ -63,3 +63,22 @@ function promptInfo() {
     });
 }
 promptInfo();
+
+function viewAllDepartment() {
+  connection.query(`SELECT * FROM department`, function (err, data) {
+    if (err) throw err;
+
+    console.table(data);
+  });
+
+  promptInfo();
+}
+
+function viewRoles() {
+  connection.query(`SELECT * FROM roles`, function (err, data) {
+    if (err) throw err;
+
+    console.table(data);
+  });
+  promptInfo();
+}
