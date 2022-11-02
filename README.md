@@ -6,7 +6,7 @@ Javascript is used by programmers across the world to create dynamic and interac
 
 These interfaces are called content management systems (CMS). Your assignment this module is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
 
-Walkthrough this Video[]
+Walkthrough this Video[https://drive.google.com/file/d/1M2pa1U30xWeFsUevDOO3xydDA8voi4u-/view]
 
 # Table of Content
 
@@ -19,7 +19,8 @@ Walkthrough this Video[]
 
 # HomePage
 
-![pic](sql.PNG)
+![pic](./img/sql.PNG)
+![pic](./img/Untitled_%20Nov%201%2C%202022%208_43%20PM.gif)
 
 # CaseStudy
 
