@@ -65,7 +65,7 @@ function promptInfo() {
 promptInfo();
 
 function viewDepartment() {
-  connection.query(`SELECT * FROM department`, function (err, data) {
+  database.query(`SELECT * FROM department`, function (err, data) {
     if (err) throw err;
 
     console.table(data);
@@ -75,7 +75,7 @@ function viewDepartment() {
 }
 
 function rolesView() {
-  connection.query(`SELECT * FROM roles`, function (err, data) {
+  database.query(`SELECT * FROM roles`, function (err, data) {
     if (err) throw err;
 
     console.table(data);
@@ -84,7 +84,7 @@ function rolesView() {
 }
 
 function viewEmployees() {
-  connection.query(`SELECT * FROM employee`, function (err, data) {
+  database.query(`SELECT * FROM employee`, function (err, data) {
     if (err) throw err;
 
     console.table(data);
@@ -101,7 +101,7 @@ function departmentAdd() {
       type: "input",
     })
     .then(function ({ name }) {
-      connection.query(
+      database.query(
         `INSERT INTO department (name) VALUES ('${name}')`,
         function (err, data) {
           if (err) throw err;
@@ -133,7 +133,7 @@ function roleAdd() {
       },
     ])
     .then(function ({ title, salary, departmentId }) {
-      connection.query(
+      database.query(
         `INSERT INTO roles (title, salary, department_id) VALUES ('${title}', '${salary}', ${departmentId})`,
         function (err, data) {
           if (err) throw err;
@@ -168,7 +168,7 @@ function employeeAdd() {
       },
     ])
     .then(function ({ firstName, lastName, roleId, managerId }) {
-      connection.query(
+      database.query(
         `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${firstName}', '${lastName}','${roleId}',${managerId})`,
         function (err, data) {
           if (err) throw err;
@@ -180,7 +180,7 @@ function employeeAdd() {
 }
 
 function employeeRoleupdate() {
-  connection.query(`SELECT * FROM employee`, function (err, data) {
+  database.query(`SELECT * FROM employee`, function (err, data) {
     if (err) throw err;
 
     let employees = [];
@@ -190,7 +190,7 @@ function employeeRoleupdate() {
       employees.push(data[i].first_name);
     }
 
-    connection.query(`SELECT * FROM roles`, function (err, data) {
+    database.query(`SELECT * FROM roles`, function (err, data) {
       if (err) throw err;
 
       for (let i = 0; i < data.length; i++) {
@@ -213,7 +213,7 @@ function employeeRoleupdate() {
           },
         ])
         .then(function ({ employee_id, role_id }) {
-          connection.query(
+          database.query(
             `UPDATE employee SET role_id = ${
               roles.indexOf(role_id) + 1
             } WHERE id = ${employees.indexOf(employee_id) + 1}`,
@@ -228,7 +228,7 @@ function employeeRoleupdate() {
   });
 }
 function managerUpdate() {
-  connection.query(`SELECT * FROM employee`, function (err, data) {
+  database.query(`SELECT * FROM employee`, function (err, data) {
     if (err) throw err;
 
     s;
@@ -265,7 +265,7 @@ function managerUpdate() {
           }`;
         }
 
-        connection.query(queryText, function (err, data) {
+        database.query(queryText, function (err, data) {
           if (err) throw err;
 
           promptInfo();
